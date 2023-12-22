@@ -27,4 +27,23 @@ public class UserService {
     public List<User> getAll() {
         return userRepository.findAll();
     }
+
+    public User getUserId(Integer id) {
+        return userRepository.findById(id).get();
+    }
+
+    public User updateUser(Integer id, User updatedUser) {
+        User existingUser = userRepository.findById(id).orElse(null);
+
+        if (existingUser != null) {
+            existingUser.setName(updatedUser.getName());
+            existingUser.setEmail(updatedUser.getEmail());
+
+            return userRepository.save(existingUser);
+        }
+
+        return null;
+    }
+
+
 }
