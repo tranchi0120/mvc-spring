@@ -28,11 +28,15 @@
                 <div class="group-title">
                     <h2 class="title">LIST USERS</h2>
                     <p class="add">
-                        <a href="/addUser" class="btn btn-primary">
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModalCenter">
                             <i class="fas fa-user-plus ml-2"></i>
-                        </a>
+                        </button>
                     </p>
                 </div>
+
+
                 <div>
                     <div>
                         <table class="table table-striped table-responsive-md">
@@ -47,14 +51,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="user" items="${users}" varStatus="loop">
+                            <c:forEach var="user" items="${listUser}" varStatus="loop">
                                 <tr>
                                     <td>${loop.index + 1}</td>
                                     <td>${user.name}</td>
                                     <td>${user.email}</td>
                                     <td>${user.address}</td>
                                     <td>
-                                        <a href="/editUser/${user.id}" class="btn btn-primary">
+                                        <a href="/editUser/${user.id}" class="btn btn-primary" data-toggle="modal"
+                                           data-target="#exampleModalCenter${user.id} ">
                                             <i class="fas fa-user-edit ml-2"></i>
                                         </a>
                                     </td>
@@ -65,6 +70,52 @@
                                         </a>
                                     </td>
                                 </tr>
+                                <div class="modal fade"
+                                    <%--                                     id="${empty user.id ?  'exampleModalCenter'  :'exampleModalCenter' + user.id}"--%>
+                                     id="exampleModalCenter${user.id}"
+                                     tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form:form action="/saveUser" method="post" modelAttribute="Users">
+                                                    <%--        kiểm tra xem có id không để cập nhật--%>
+                                                    <form:hidden path="id" placeholder="Enter name"/>
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <form:input type="text" class="form-control" path="name"
+                                                                    placeholder="Enter name" value="${user.name}"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Email</label>
+                                                        <form:input type="email" class="form-control" path="email"
+                                                                    placeholder="Enter email" value="${user.email}"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="address">Address</label>
+                                                        <form:input type="text" class="form-control" path="address"
+                                                                    placeholder="Enter address"
+                                                                    value="${user.address}"/>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </form:form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </c:forEach>
                             </tbody>
                         </table>

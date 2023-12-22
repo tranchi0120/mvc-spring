@@ -27,12 +27,10 @@
 <body>
 <div class="container">
     <form:form action="/saveUser" method="post" modelAttribute="user">
-        <%--        kiểm tra xem có id không để cập nhật--%>
-        <form:hidden path="id" placeholder="Enter name"/>
+
         <div class="form-group">
             <label for="name">Name</label>
             <form:input type="text" class="form-control" path="name" placeholder="Enter name" />
-
         </div>
         <div class="form-group">
             <label for="email">Email</label>
@@ -42,7 +40,7 @@
             <label for="address">Address</label>
             <form:input type="text" class="form-control" path="address" placeholder="Enter address" />
         </div>
-        <button type="submit" class="btn btn-primary">${user.id != null ? 'Update' : 'Add'}</button>
+        <button type="submit" class="btn btn-primary">Add</button>
     </form:form>
 </div>
 </body>

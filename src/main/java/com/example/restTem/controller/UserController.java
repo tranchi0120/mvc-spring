@@ -5,7 +5,10 @@ import com.example.restTem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -16,7 +19,8 @@ public class UserController {
     @GetMapping("/")
     public String getAllUser(Model model)  {
         List<User> listUser = userService.getAll();
-        model.addAttribute("users", listUser);
+        model.addAttribute("listUser", listUser);
+        model.addAttribute("Users", new User());
         return "home";
     }
 
@@ -35,20 +39,10 @@ public class UserController {
     @GetMapping("/editUser/{id}")
     public String getUserId(@PathVariable("id") Integer id, Model model) {
         User user = userService.getUserId(id);
-        model.addAttribute("user", user);
+        model.addAttribute("Users", user);
         return "addUser";
     }
 
-    @PutMapping("/update/{id}")
-    public String updateUser(@ModelAttribute User user, @PathVariable("id") Integer id, Model model) {
-        User updatedUser = userService.updateUser(id, user);
-        if (updatedUser != null) {
-            model.addAttribute("message", "User updated successfully");
-        } else {
-            model.addAttribute("error", "User not found or update failed");
-        }
-        return "redirect:/";
-    }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id) {
