@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>All Students</title>
+    <title>All Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
@@ -22,20 +22,23 @@
 <body>
 
 <div class="container my-2">
-    <div class="group containerAll">
+    <div class=" ">
         <div>
             <div>
-                <p>
-                    <a href="/addUser" class="btn btn-primary">
-                        <i class="fas fa-user-plus ml-2"></i>
-                    </a>
-                </p>
+                <div class="group-title">
+                    <h2 class="title">LIST USERS</h2>
+                    <p class="add">
+                        <a href="/addUser" class="btn btn-primary">
+                            <i class="fas fa-user-plus ml-2"></i>
+                        </a>
+                    </p>
+                </div>
                 <div>
                     <div>
                         <table class="table table-striped table-responsive-md">
                             <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>STT</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Address</th>
@@ -44,9 +47,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="user" items="${users}">
+                            <c:forEach var="user" items="${users}" varStatus="loop">
                                 <tr>
-                                    <td>${user.id}</td>
+                                    <td>${loop.index + 1}</td>
                                     <td>${user.name}</td>
                                     <td>${user.email}</td>
                                     <td>${user.address}</td>

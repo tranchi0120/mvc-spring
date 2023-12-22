@@ -1,14 +1,14 @@
-.containerAll{
-    margin: 0 auto;
-    padding: 0;
-
-}
 
 *{
     box-sizing: border-box;
+}
 
-
-    margin: 0 auto;
+body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .container{
@@ -16,4 +16,20 @@
     padding: 20px 15px;
     max-width: 960px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.group-title {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.add {
+    align-items: center;
+    margin: 0;
+    display: flex;
 }
