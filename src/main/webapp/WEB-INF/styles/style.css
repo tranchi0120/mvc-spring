@@ -33,3 +33,15 @@ body {
     margin: 0;
     display: flex;
 }
+
+.war {
+    color: red;
+}
+
+.userName {
+    color: orange;
+}
+
+.fa-user-times {
+    color: white !important;
+}

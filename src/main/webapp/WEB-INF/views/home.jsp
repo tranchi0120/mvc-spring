@@ -35,6 +35,53 @@
                         </button>
                     </p>
                 </div>
+                <%--model--%>
+                <div class="modal fade"
+                <%--                                     id="${empty user.id ?  'exampleModalCenter'  :'exampleModalCenter' + user.id}"--%>
+                     id="exampleModalCenter"
+                     tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">CREATE NEW USER</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form:form action="/saveUser" method="post" modelAttribute="Users">
+                                    <%--        kiểm tra xem có id không để cập nhật--%>
+                                    <form:hidden path="id" placeholder="Enter name"/>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <form:input type="text" class="form-control" path="name"
+                                                    placeholder="Enter name"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <form:input type="email" class="form-control" path="email"
+                                                    placeholder="Enter email"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <form:input type="text" class="form-control" path="address"
+                                                    placeholder="Enter address"
+                                        />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </form:form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
 
                 <div>
@@ -64,58 +111,40 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href='<c:url value='/delete/${user.id }'/>' type="submit"
+                                        <a data-toggle="modal" data-target="#exampleModalDelete${user.id}"
                                            class="btn btn-danger">
                                             <i class="fas fa-user-times ml-2"></i>
                                         </a>
-                                    </td>
-                                </tr>
-                                <div class="modal fade"
-                                    <%--                                     id="${empty user.id ?  'exampleModalCenter'  :'exampleModalCenter' + user.id}"--%>
-                                     id="exampleModalCenter${user.id}"
-                                     tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form:form action="/saveUser" method="post" modelAttribute="Users">
-                                                    <%--        kiểm tra xem có id không để cập nhật--%>
-                                                    <form:hidden path="id" placeholder="Enter name"/>
-                                                    <div class="form-group">
-                                                        <label for="name">Name</label>
-                                                        <form:input type="text" class="form-control" path="name"
-                                                                    placeholder="Enter name" value="${user.name}"/>
+
+                                            <%--model delete--%>
+                                        <div class="modal fade" id="exampleModalDelete${user.id}" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalCenterTitle">DELETE USER <span class="userName">${user.name}</span></h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="email">Email</label>
-                                                        <form:input type="email" class="form-control" path="email"
-                                                                    placeholder="Enter email" value="${user.email}"/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="address">Address</label>
-                                                        <form:input type="text" class="form-control" path="address"
-                                                                    placeholder="Enter address"
-                                                                    value="${user.address}"/>
+                                                    <div class="modal-body">
+                                                        <p class="war">ARE YOU SURE YOU WANT TO DELETE?</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                        <a href='<c:url value='/delete/${user.id }'/>' type="submit"
+                                                           class="btn btn-danger">Delete
+                                                        </a>
                                                     </div>
-                                                </form:form>
+                                                </div>
                                             </div>
-
                                         </div>
-                                    </div>
-                                </div>
+                                    </td>
+                                </tr>
+
                             </c:forEach>
                             </tbody>
                         </table>
