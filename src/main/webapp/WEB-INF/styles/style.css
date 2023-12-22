@@ -1,3 +1,19 @@
-.chung{
-    background: red;
+.containerAll{
+    margin: 0 auto;
+    padding: 0;
+
+}
+
+*{
+    box-sizing: border-box;
+
+
+    margin: 0 auto;
+}
+
+.container{
+    margin: 0 auto;
+    padding: 20px 15px;
+    max-width: 960px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }

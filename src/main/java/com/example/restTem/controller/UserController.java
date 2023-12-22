@@ -13,7 +13,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-    @RequestMapping("/")
     @GetMapping("/")
     public String getAllUser(Model model)  {
         List<User> listUser = userService.getAll();
@@ -48,6 +47,12 @@ public class UserController {
         } else {
             model.addAttribute("error", "User not found or update failed");
         }
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        userService.deleteUser(id);
         return "redirect:/";
     }
 }

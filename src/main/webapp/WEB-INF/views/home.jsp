@@ -14,24 +14,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <style>
+        <%@include file="/WEB-INF/styles/style.css" %>
+    </style>
+
 </head>
 <body>
 
 <div class="container my-2">
-    <div class="card">
-        <div class="card-body">
-            <div class="container my-5">
-                <p class="my-5">
+    <div class="group containerAll">
+        <div>
+            <div>
+                <p>
                     <a href="/addUser" class="btn btn-primary">
-                        <i class="fas fa-user-plus ml-2">Add user </i>
+                        <i class="fas fa-user-plus ml-2"></i>
                     </a>
                 </p>
-                <div class="col-md-10">
+                <div>
                     <div>
                         <table class="table table-striped table-responsive-md">
                             <thead>
                             <tr>
-
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -53,7 +56,8 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="/user-delete/${user.id}" class="btn btn-primary">
+                                        <a href='<c:url value='/delete/${user.id }'/>' type="submit"
+                                           class="btn btn-danger">
                                             <i class="fas fa-user-times ml-2"></i>
                                         </a>
                                     </td>
