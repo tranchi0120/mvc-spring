@@ -15,7 +15,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
-        <%@include file="/WEB-INF/styles/style.css" %>
+        <%@include file="/WEB-INF/static/style.css" %>
     </style>
 
 </head>
@@ -51,22 +51,23 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form:form action="/saveUser" method="post" modelAttribute="Users">
+                                <%--@elvariable id="Users" type="java"--%>
+                                <form:form action="/saveUser" method="post" modelAttribute="Users" name="formAdd">
                                     <%--        kiểm tra xem có id không để cập nhật--%>
                                     <form:hidden path="id" placeholder="Enter name"/>
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <form:input type="text" class="form-control" path="name"
+                                        <form:input type="text" class="form-control name" path="name"
                                                     placeholder="Enter name"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <form:input type="email" class="form-control" path="email"
+                                        <form:input type="email" class="form-control email" path="email"
                                                     placeholder="Enter email"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="address">Address</label>
-                                        <form:input type="text" class="form-control" path="address"
+                                        <form:input type="text" class="form-control address" path="address"
                                                     placeholder="Enter address"
                                         />
                                     </div>
@@ -74,7 +75,8 @@
                                         <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Close
                                         </button>
-                                        <button type="submit" class="btn btn-success">Save</button>
+                                        <button type="submit" class="btn btn-success">Save
+                                        </button>
                                     </div>
                                 </form:form>
                             </div>
@@ -98,6 +100,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <jsp:useBean id="listUser" scope="request" type="java.util.List"/>
                             <c:forEach var="user" items="${listUser}" varStatus="loop">
                                 <tr>
                                     <td>${loop.index + 1}</td>
@@ -110,11 +113,12 @@
                                             <i class="fas fa-user-edit ml-2"></i>
                                         </a>
                                     </td>
+                                        <%--  button delete--%>
                                     <td>
-                                        <a data-toggle="modal" data-target="#exampleModalDelete${user.id}"
+                                        <button data-toggle="modal" data-target="#exampleModalDelete${user.id}"
                                            class="btn btn-danger">
                                             <i class="fas fa-user-times ml-2"></i>
-                                        </a>
+                                        </button>
 
                                             <%--model delete--%>
                                         <div class="modal fade" id="exampleModalDelete${user.id}" tabindex="-1" role="dialog"
@@ -144,7 +148,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
                             </c:forEach>
                             </tbody>
                         </table>
@@ -154,6 +157,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -163,6 +167,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/static/main.js"></script>
 </body>
 </html>
 
