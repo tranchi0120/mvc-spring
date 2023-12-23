@@ -6,43 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void save(User user) {
-        if (user.getId() == null) {
-            userRepository.save(user);
-        } else {
-            User staffUpdate = userRepository.findById(user.getId()).get();
-            staffUpdate.setName(user.getName());
-            staffUpdate.setAddress(user.getAddress());
-            staffUpdate.setEmail(user.getEmail());
-            userRepository.save(staffUpdate);
-        }
-    }
-
     public List<User> getAll() {
         return userRepository.findAll();
+    }
+
+    public void addUser(User user) {
+        userRepository.save(user);
     }
 
     public User getUserId(Integer id) {
         return userRepository.findById(id).get();
     }
 
-    public User updateUser(Integer id, User updatedUser) {
-        User existingUser = userRepository.findById(id).orElse(null);
-
-        if (existingUser != null) {
-            existingUser.setName(updatedUser.getName());
-            existingUser.setEmail(updatedUser.getEmail());
-
-            return userRepository.save(existingUser);
+    public void updateUser(Integer id, User updatedUser) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User userUpdate = optionalUser.get();
+            userUpdate.setName(updatedUser.getName());
+            userUpdate.setEmail(updatedUser.getEmail());
+            userUpdate.setAddress(updatedUser.getAddress());
+            userRepository.save(userUpdate);
+        } else {
+            System.out.println("loi khi update");
         }
-
-        return null;
     }
 
 

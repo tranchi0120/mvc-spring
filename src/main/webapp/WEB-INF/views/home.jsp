@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="modal.jsp"%>
+<%@include file="modalUpdate.jsp"%>
 
 <html>
 <head>
@@ -35,55 +37,6 @@
                         </button>
                     </p>
                 </div>
-                <%--model--%>
-                <div class="modal fade"
-                <%--                                     id="${empty user.id ?  'exampleModalCenter'  :'exampleModalCenter' + user.id}"--%>
-                     id="exampleModalCenter"
-                     tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">CREATE NEW USER</h5>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <%--@elvariable id="Users" type="java"--%>
-                                <form:form action="/saveUser" method="post" modelAttribute="Users" name="formAdd">
-                                    <%--        kiểm tra xem có id không để cập nhật--%>
-                                    <form:hidden path="id" placeholder="Enter name"/>
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <form:input type="text" class="form-control name" path="name"
-                                                    placeholder="Enter name"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <form:input type="email" class="form-control email" path="email"
-                                                    placeholder="Enter email"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <form:input type="text" class="form-control address" path="address"
-                                                    placeholder="Enter address"
-                                        />
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close
-                                        </button>
-                                        <button type="submit" class="btn btn-success">Save
-                                        </button>
-                                    </div>
-                                </form:form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
 
 
                 <div>
@@ -100,7 +53,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <jsp:useBean id="listUser" scope="request" type="java.util.List"/>
                             <c:forEach var="user" items="${listUser}" varStatus="loop">
                                 <tr>
                                     <td>${loop.index + 1}</td>
