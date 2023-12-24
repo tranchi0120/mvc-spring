@@ -5,10 +5,7 @@ import com.example.restTem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,11 +15,10 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/")
-    public String getAllUser(@ModelAttribute User user, Model model) {
+    public String getAllUser(Model model) {
         List<User> listUser = userService.getAll();
         model.addAttribute("listUser", listUser);
         model.addAttribute("user", new User());
-        model.addAttribute("userEdit", user);
         return "home";
     }
 
@@ -34,7 +30,7 @@ public class UserController {
         } else {
             model.addAttribute("errorMessage", "Không tìm thấy người dùng với ID: " + id);
         }
-        return "test";
+        return "redirect:/";
     }
 
     @PostMapping("/saveUser")
@@ -43,7 +39,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/updateUser/{id}")
+    @PutMapping("/updateUser/{id}")
     public String updateUserData(@PathVariable("id") Integer id, @ModelAttribute User updatedUser) {
         userService.updateUser(id, updatedUser);
         return "redirect:/";
@@ -54,5 +50,6 @@ public class UserController {
         userService.deleteUser(id);
         return "redirect:/";
     }
+
 
 }

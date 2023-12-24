@@ -13,6 +13,7 @@
 <body>
 <%--model--%>
 <div class="modal fade"
+
      id="exampleModalCenter"
      tabindex="-1" role="dialog"
      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -26,6 +27,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <%--@elvariable id="Users" type="java"--%>
                 <form:form action="saveUser" method="post" modelAttribute="user" name="formAdd">
                     <%--        kiểm tra xem có id không để cập nhật--%>
                     <form:hidden path="id" placeholder="Enter name"/>
@@ -54,7 +56,6 @@
                     </div>
                 </form:form>
             </div>
-
 
         </div>
     </div>
