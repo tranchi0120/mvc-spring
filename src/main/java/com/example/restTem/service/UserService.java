@@ -22,9 +22,8 @@ public class UserService {
     }
 
     public User getUserId(Integer id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
-
     public void updateUser(Integer id, User updatedUser) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
@@ -34,11 +33,9 @@ public class UserService {
             userUpdate.setAddress(updatedUser.getAddress());
             userRepository.save(userUpdate);
         } else {
-            System.out.println("loi khi update");
+            throw new IllegalArgumentException("Người dùng với ID " + id + " không tồn tại");
         }
     }
-
-
     public void deleteUser(Integer id){
          userRepository.deleteById(id);
     }

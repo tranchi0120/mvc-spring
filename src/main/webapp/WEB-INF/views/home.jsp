@@ -3,7 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="modal.jsp"%>
-<%@include file="modalUpdate.jsp"%>
+<%@include file="test.jsp" %>
+
+
 
 <html>
 <head>
@@ -60,11 +62,16 @@
                                     <td>${user.email}</td>
                                     <td>${user.address}</td>
                                     <td>
-                                        <a href="/editUser/${user.id}" class="btn btn-primary" data-toggle="modal"
-                                           data-target="#exampleModalCenter${user.id} ">
+                                        <a href="/getSingleUser/${user.id}"
+                                           class="btn btn-primary"
+                                           data-toggle="modal"
+                                           data-target="#exampleModalUpdate${user.id}"
+                                        >
                                             <i class="fas fa-user-edit ml-2"></i>
                                         </a>
+
                                     </td>
+
                                         <%--  button delete--%>
                                     <td>
                                         <button data-toggle="modal" data-target="#exampleModalDelete${user.id}"
@@ -101,10 +108,14 @@
                                     </td>
                                 </tr>
                             </c:forEach>
+
                             </tbody>
+
                         </table>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -121,6 +132,7 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/static/main.js"></script>
+
 </body>
 </html>
 

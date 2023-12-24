@@ -14,38 +14,37 @@
 <body>
 <%--model update--%>
 
-    <div class="modal fade"
-         id="exampleModalCenter${getUserItem.id}"
+<div class="modalUpdate fade"
+     id="exampleModalUpdate${getUser.id}"
          tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
                 <div class="modal-body">
-                        <%--@elvariable id="Users" type="java"--%>
-                    <form:form action="updateUser" method="POST" modelAttribute="Users" name="formAdd">
-                        <%--        kiểm tra xem có id không để cập nhật--%>
+                    <%--@elvariable id="users" type=""--%>
+                    <form:form action="updateUser" method="POST" modelAttribute="getUser" name="formAdd">
                         <form:hidden path="id" placeholder="Enter name"/>
                         <div class="form-group">
                             <label>Name</label>
                             <form:input type="text" class="form-control name" path="name"
-                                        placeholder="Enter name" value="${getUserItem.name}"/>
+                                        placeholder="Enter name" value="${getUser.name}"/>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
                             <form:input type="text" class="form-control name" path="email"
-                                        placeholder="Enter email" value="${getUserItem.email}"/>
+                                        placeholder="Enter email" value="${getUser.email}"/>
                         </div>
                         <div class="form-group">
                             <label>Address</label>
                             <form:input type="text" class="form-control address" path="address"
-                                        placeholder="Enter address" value="${getUserItem.address}"/>
+                                        placeholder="Enter address" value="${getUser.address}"/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary"
                                     data-dismiss="modal">Close
                             </button>
-                            <button type="submit" class="btn btn-success">Save
+                            <button type="submit" class="btn btn-success">Update
                             </button>
                         </div>
                     </form:form>
