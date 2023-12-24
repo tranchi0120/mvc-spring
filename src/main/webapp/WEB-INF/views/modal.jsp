@@ -34,17 +34,17 @@
                     <div class="form-group">
                         <label>Name</label>
                         <form:input type="text" class="form-control name" path="name"
-                                    placeholder="Enter name"/>
+                                    placeholder="Enter name" required="true"/>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
                         <form:input type="email" class="form-control email" path="email"
-                                    placeholder="Enter email"/>
+                                    placeholder="Enter email" required="true"/>
                     </div>
                     <div class="form-group">
                         <label>Address</label>
                         <form:input type="text" class="form-control address" path="address"
-                                    placeholder="Enter address"
+                                    placeholder="Enter address" required="true"
                         />
                     </div>
                     <div class="modal-footer">
