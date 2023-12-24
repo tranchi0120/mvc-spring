@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="modal.jsp"%>
-<%@include file="test.jsp" %>
+<%@include file="modalUpdate.jsp" %>
 
 
 
@@ -64,11 +64,12 @@
                                     <td>
                                         <a href="/getSingleUser/${user.id}"
                                            class="btn btn-primary"
-                                           data-toggle="modal"
-                                           data-target="#exampleModalUpdate${user.id}"
+                                          <%-- data-toggle="modal"
+                                           data-target="#exampleModalUpdate${user.id}"--%>
                                         >
                                             <i class="fas fa-user-edit ml-2"></i>
                                         </a>
+                                        <%--update model--%>
 
                                     </td>
 
