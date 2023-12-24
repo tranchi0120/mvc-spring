@@ -3,8 +3,11 @@ package com.example.restTem.service;
 import com.example.restTem.entities.User;
 import com.example.restTem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -12,8 +15,12 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void save(User user) {
+    public boolean save(User user) {
+
         if (user.getId() == null) {
+            if(userRepository.existsByEmail(user.getEmail())){
+                return false;
+            }
             userRepository.save(user);
         } else {
             User staffUpdate = userRepository.findById(user.getId()).get();
@@ -22,6 +29,7 @@ public class UserService {
             staffUpdate.setEmail(user.getEmail());
             userRepository.save(staffUpdate);
         }
+        return true;
     }
 
     public List<User> getAll() {
@@ -38,7 +46,7 @@ public class UserService {
         if (existingUser != null) {
             existingUser.setName(updatedUser.getName());
             existingUser.setEmail(updatedUser.getEmail());
-
+            existingUser.setAddress(updatedUser.getAddress());
             return userRepository.save(existingUser);
         }
 
@@ -49,5 +57,12 @@ public class UserService {
     public void deleteUser(Integer id){
          userRepository.deleteById(id);
     }
+
+    public Page<User> pagination(Pageable pageable){
+        userRepository.findAll((Sort) pageable);
+        return null;
+    }
+
+
 
 }

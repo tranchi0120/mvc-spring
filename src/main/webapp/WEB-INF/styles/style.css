@@ -33,3 +33,20 @@ body {
     margin: 0;
     display: flex;
 }
+
+.box{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.userName{
+    color: orange;
+}
+
+#successMessage{
+    background: #7eea89;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    display: none;
+}

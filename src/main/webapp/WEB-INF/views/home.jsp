@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,6 +13,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <%--noti--%>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <style>
         <%@include file="/WEB-INF/styles/style.css" %>
     </style>
@@ -22,11 +25,15 @@
 <body>
 
 <div class="container my-2">
-    <div class=" ">
+    <div class="toasty" id="successMessage">
+        ${message}
+    </div>
+    <div>
         <div>
             <div>
                 <div class="group-title">
                     <h2 class="title">LIST USERS</h2>
+
                     <p class="add">
                         <a href="/addUser" class="btn btn-primary">
                             <i class="fas fa-user-plus ml-2"></i>
@@ -59,10 +66,39 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href='<c:url value='/delete/${user.id }'/>' type="submit"
-                                           class="btn btn-danger">
+                                        <button data-toggle="modal" data-target="#exampleModalDelete${user.id}"
+                                                class="btn btn-danger">
                                             <i class="fas fa-user-times ml-2"></i>
-                                        </a>
+                                        </button>
+
+                                            <%--model delete--%>
+                                        <div class="modal fade" id="exampleModalDelete${user.id}" tabindex="-1"
+                                             role="dialog"
+                                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalCenterTitle">DELETE USER
+                                                            <span class="userName">${user.name}</span></h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="war">ARE YOU SURE YOU WANT TO DELETE?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <a href='<c:url value='/delete/${user.id }'/>' type="submit"
+                                                           class="btn btn-danger">Delete
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -74,6 +110,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="/WEB-INF/styles/main.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
