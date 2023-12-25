@@ -52,9 +52,7 @@
                         <label for="name">Name</label>
                         <form:input type="text" class="form-control" path="name" placeholder="Enter name"/>
                         <span style="color: red;" id="nameError">
-                    <c:if test="${pageContext.request.contextPath == '/userForm' && not empty param.name && empty param.name}">
-                        Please enter a name.
-                    </c:if>
+
                     </span>
                         <form:errors path="name" cssClass="error"/>
 
@@ -62,6 +60,9 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <form:input type="email" class="form-control" path="email" placeholder="Enter email"/>
+                        <c:if test="${not empty error}">
+                            <p class="error text-danger">${error}</p>
+                        </c:if>
 
                     </div>
                     <div class="form-group">

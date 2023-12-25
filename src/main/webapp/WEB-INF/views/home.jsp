@@ -35,7 +35,7 @@
                     <h2 class="title">LIST USERS</h2>
 
                     <p class="add">
-                        <a href="/userForm" class="btn btn-primary">
+                        <a href="${pageContext.request.contextPath}/userForm" class="btn btn-primary">
                             <i class="fas fa-user-plus ml-2"></i>
                         </a>
                     </p>

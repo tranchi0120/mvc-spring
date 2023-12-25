@@ -3,6 +3,8 @@ package com.example.restTem.service;
 import com.example.restTem.entities.User;
 import com.example.restTem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,19 +16,17 @@ public class UserService {
 
     public boolean save(User user) {
         if (user.getId() == null) {
-            if (!isValidUser(user)) {
+            if (isValidUser(user)) {
                 return false;
             }
-
             if (userRepository.existsByEmail(user.getEmail())) {
-                /* throw new DuplicateEmailException("Email đã tồn tại"); */
                 return false;
             }
             userRepository.save(user);
         } else {
             User staffUpdate = userRepository.findById(user.getId()).orElse(null);
             if (staffUpdate != null) {
-                if (!isValidUser(user)) {
+                if (isValidUser(user)) {
                     return false;
                 }
                 staffUpdate.setName(user.getName());
@@ -38,12 +38,16 @@ public class UserService {
         return true;
     }
 
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
     private boolean isValidUser(User user) {
-        return isValidField(user.getName()) && isValidField(user.getEmail()) && isValidField(user.getAddress());
+        return isValidField(user.getName()) || isValidField(user.getEmail()) || isValidField(user.getAddress());
     }
 
     private boolean isValidField(String field) {
-        return field != null && !field.trim().isEmpty();
+        return field == null || field.trim().isEmpty();
     }
 
     public List<User> getAll() {
@@ -56,5 +60,10 @@ public class UserService {
 
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+
+
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }

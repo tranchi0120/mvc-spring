@@ -4,11 +4,16 @@ import com.example.restTem.entities.User;
 import com.example.restTem.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -31,15 +36,17 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@Valid User user, BindingResult bindingResult) {
-        // Kiểm tra và xử lý lưu dữ liệu
-        if (bindingResult.hasErrors()) {
-            return "user-form";
+    public String saveUser(@ModelAttribute("user") User user, Model model) {
+
+        if (userService.emailExists(user.getEmail())) {
+            model.addAttribute("error", "Email đã được sử dụng. Vui lòng chọn một email khác.");
+            return "user_form";
         } else {
             userService.save(user);
             return "redirect:/";
         }
     }
+
 
     @GetMapping("/editUser/{id}")
     public String getUserId(@PathVariable("id") Integer id, Model model) {
@@ -52,6 +59,14 @@ public class UserController {
     public String deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUser(id);
         return "redirect:/";
+    }
+
+    @GetMapping("findAll")
+    public String paginate(@PageableDefault(value = 5) Pageable pageable, Model model) {
+        Page<User> userPage = userService.findAll(pageable);
+        System.out.println("userPage:" + userPage);
+        model.addAttribute("userPage", userPage);
+        return "home";
     }
 }
 
