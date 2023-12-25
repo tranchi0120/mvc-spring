@@ -51,7 +51,13 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <form:input type="text" class="form-control" path="name" placeholder="Enter name"/>
-                        <span style="color: red;" id="nameError">
+                        <c:if test="${not empty errors}">
+                            <div class="error">
+                                <c:forEach items="${errors.allErrors}" var="error">
+                                    ${error.defaultMessage}<br>
+                                </c:forEach>
+                            </div>
+                        </c:if>
 
                     </span>
                         <form:errors path="name" cssClass="error"/>

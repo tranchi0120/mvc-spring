@@ -16,9 +16,6 @@ public class UserService {
 
     public boolean save(User user) {
         if (user.getId() == null) {
-            if (isValidUser(user)) {
-                return false;
-            }
             if (userRepository.existsByEmail(user.getEmail())) {
                 return false;
             }
@@ -26,9 +23,6 @@ public class UserService {
         } else {
             User staffUpdate = userRepository.findById(user.getId()).orElse(null);
             if (staffUpdate != null) {
-                if (isValidUser(user)) {
-                    return false;
-                }
                 staffUpdate.setName(user.getName());
                 staffUpdate.setAddress(user.getAddress());
                 staffUpdate.setEmail(user.getEmail());
@@ -42,13 +36,7 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    private boolean isValidUser(User user) {
-        return isValidField(user.getName()) || isValidField(user.getEmail()) || isValidField(user.getAddress());
-    }
 
-    private boolean isValidField(String field) {
-        return field == null || field.trim().isEmpty();
-    }
 
     public List<User> getAll() {
         return userRepository.findAll();
@@ -63,7 +51,15 @@ public class UserService {
     }
 
 
-    public Page<User> findAll(Pageable pageable) {
+  /*  public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
+    private boolean isValidUser(User user) {
+        return isValidField(user.getName()) || isValidField(user.getEmail()) || isValidField(user.getAddress());
+    }
+
+    private boolean isValidField(String field) {
+        return field == null || field.trim().isEmpty();
+    }*/
 }

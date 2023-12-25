@@ -36,15 +36,13 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User user, Model model) {
-
+    public String saveUser(@ModelAttribute("user") @Valid User user, Model model) {
         if (userService.emailExists(user.getEmail())) {
             model.addAttribute("error", "Email đã được sử dụng. Vui lòng chọn một email khác.");
             return "user_form";
-        } else {
-            userService.save(user);
-            return "redirect:/";
         }
+        userService.save(user);
+        return "redirect:/";
     }
 
 
@@ -59,14 +57,6 @@ public class UserController {
     public String deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUser(id);
         return "redirect:/";
-    }
-
-    @GetMapping("findAll")
-    public String paginate(@PageableDefault(value = 5) Pageable pageable, Model model) {
-        Page<User> userPage = userService.findAll(pageable);
-        System.out.println("userPage:" + userPage);
-        model.addAttribute("userPage", userPage);
-        return "home";
     }
 }
 
