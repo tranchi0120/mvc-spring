@@ -104,6 +104,14 @@
                             </c:forEach>
                             </tbody>
                         </table>
+
+                        <c:if test="${currentPage > 0}">
+                        <a href="?page=${currentPage - 1}">Previous</a>
+                    </c:if>
+
+                        <c:if test="${currentPage < totalPages - 1}">
+                            <a href="?page=${currentPage + 1}">Next</a>
+                        </c:if>
                     </div>
                 </div>
             </div>
