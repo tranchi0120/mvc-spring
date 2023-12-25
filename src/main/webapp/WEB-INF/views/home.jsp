@@ -35,7 +35,7 @@
                     <h2 class="title">LIST USERS</h2>
 
                     <p class="add">
-                        <a href="/addUser" class="btn btn-primary">
+                        <a href="/userForm" class="btn btn-primary">
                             <i class="fas fa-user-plus ml-2"></i>
                         </a>
                     </p>
@@ -92,7 +92,7 @@
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close
                                                         </button>
-                                                        <a href='<c:url value='/delete/${user.id }'/>' type="submit"
+                                                        <a href='<c:url value='/delete/${user.id}'/>' type="submit"
                                                            class="btn btn-danger">Delete
                                                         </a>
                                                     </div>
@@ -111,7 +111,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/WEB-INF/styles/main.js"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/styles/main.js"></script>--%>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

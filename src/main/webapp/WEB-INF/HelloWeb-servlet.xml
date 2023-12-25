@@ -20,4 +20,5 @@
                        location="/resources/" />
 
         <mvc:annotation-driven />
+
     </beans>

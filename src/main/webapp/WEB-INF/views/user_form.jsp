@@ -1,4 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="span" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 123456
@@ -25,14 +27,17 @@
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-    <link rel="stylesheet" href="../styles/style.css"/>
+    <style>
+        <%@include file="/WEB-INF/styles/style.css" %>
+    </style>
 </head>
 <body>
-<div class="container">
+<div class="container-form">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">${user.id != null ? 'EDIT USER' : 'CREATE NEW USER'}</h5>
+                <h5 class="modal-title"
+                    id="exampleModalLongTitle">${user.id != null ? 'EDIT USER' : 'CREATE NEW USER'}</h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
                     <span aria-hidden="true" onclick="cancelForm()"><i class="fa-solid fa-xmark"></i></span>
@@ -40,23 +45,31 @@
             </div>
             <div class="modal-body">
                 <%--@elvariable id="Users" type="java"--%>
-                <form:form action="/saveUser" method="post" modelAttribute="user">
+                    <form:form action="${pageContext.request.contextPath}/saveUser" method="post" modelAttribute="user">
                     <%--        kiểm tra xem có id không để cập nhật--%>
                     <form:hidden path="id" placeholder="Enter name"/>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <form:input type="text" class="form-control" path="name" placeholder="Enter name"/>
+                        <span style="color: red;" id="nameError">
+                    <c:if test="${pageContext.request.contextPath == '/userForm' && not empty param.name && empty param.name}">
+                        Please enter a name.
+                    </c:if>
+                    </span>
+                        <form:errors path="name" cssClass="error"/>
 
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <form:input type="email" class="form-control" path="email" placeholder="Enter email"/>
+
                     </div>
                     <div class="form-group">
                         <label for="address">Address</label>
                         <form:input type="text" class="form-control" path="address" placeholder="Enter address"/>
                     </div>
-                    <button type="submit" class="btn btn-primary add" onclick="showSuccessMessage()">${user.id != null ? 'Update' : 'Add'}</button>
+                        <button type="submit" class="btn btn-primary add"
+                                onclick="showSuccessMessage()">${user.id != null ? 'Update' : 'Add'}</button>
                 </form:form>
             </div>
 
@@ -71,7 +84,7 @@
 
 
 </script>
-<script type="text/javascript" src="/WEB-INF/styles/main.js"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/styles/main.js"></script>--%>
 
 </body>
 </html>

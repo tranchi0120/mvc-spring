@@ -50,3 +50,10 @@ body {
     border: none;
     display: none;
 }
+
+.container-form{
+    margin: 0 auto;
+    padding: 20px 15px;
+    max-width: 960px;
+    width: 100%;
+}

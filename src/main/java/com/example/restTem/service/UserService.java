@@ -3,11 +3,8 @@ package com.example.restTem.service;
 import com.example.restTem.entities.User;
 import com.example.restTem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -16,20 +13,37 @@ public class UserService {
     UserRepository userRepository;
 
     public boolean save(User user) {
-
         if (user.getId() == null) {
-            if(userRepository.existsByEmail(user.getEmail())){
+            if (!isValidUser(user)) {
+                return false;
+            }
+
+            if (userRepository.existsByEmail(user.getEmail())) {
+                /* throw new DuplicateEmailException("Email đã tồn tại"); */
                 return false;
             }
             userRepository.save(user);
         } else {
-            User staffUpdate = userRepository.findById(user.getId()).get();
-            staffUpdate.setName(user.getName());
-            staffUpdate.setAddress(user.getAddress());
-            staffUpdate.setEmail(user.getEmail());
-            userRepository.save(staffUpdate);
+            User staffUpdate = userRepository.findById(user.getId()).orElse(null);
+            if (staffUpdate != null) {
+                if (!isValidUser(user)) {
+                    return false;
+                }
+                staffUpdate.setName(user.getName());
+                staffUpdate.setAddress(user.getAddress());
+                staffUpdate.setEmail(user.getEmail());
+                userRepository.save(staffUpdate);
+            }
         }
         return true;
+    }
+
+    private boolean isValidUser(User user) {
+        return isValidField(user.getName()) && isValidField(user.getEmail()) && isValidField(user.getAddress());
+    }
+
+    private boolean isValidField(String field) {
+        return field != null && !field.trim().isEmpty();
     }
 
     public List<User> getAll() {
@@ -37,32 +51,10 @@ public class UserService {
     }
 
     public User getUserId(Integer id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(Integer id, User updatedUser) {
-        User existingUser = userRepository.findById(id).orElse(null);
-
-        if (existingUser != null) {
-            existingUser.setName(updatedUser.getName());
-            existingUser.setEmail(updatedUser.getEmail());
-            existingUser.setAddress(updatedUser.getAddress());
-            return userRepository.save(existingUser);
-        }
-
-        return null;
+    public void deleteUser(Integer id) {
+        userRepository.deleteById(id);
     }
-
-
-    public void deleteUser(Integer id){
-         userRepository.deleteById(id);
-    }
-
-    public Page<User> pagination(Pageable pageable){
-        userRepository.findAll((Sort) pageable);
-        return null;
-    }
-
-
-
 }
