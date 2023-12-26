@@ -4,28 +4,25 @@ import com.example.restTem.entities.User;
 import com.example.restTem.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @Controller
 public class UserController {
     @Autowired
     UserService userService;
 
-//    @GetMapping("/")
-//    public String getAllUser(Model model) {
-//        List<User> listUser = userService.getAll();
-//        model.addAttribute("users", listUser);
-//        return "home";
-//    }
+    @GetMapping("/")
+    public String getAllUser(Model model) {
+        List<User> listUser = userService.getAll();
+
+        model.addAttribute("users", listUser);
+        return "home";
+    }
 
     @GetMapping("/userForm")
     public String addUser(Model model) {
@@ -57,19 +54,5 @@ public class UserController {
         return "redirect:/";
     }
 
-
-    /*getUser*/
-
-    @GetMapping("/")
-    public String getUsers(Model model, @RequestParam(defaultValue = "0") int page) {
-        int pageSize = 10;
-        PageRequest pageable = PageRequest.of(page, pageSize);
-        Page<User> userPage = userService.getUserList(pageable);
-        model.addAttribute("users", userPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", userPage.getTotalPages());
-
-        return "home";
-    }
 }
 

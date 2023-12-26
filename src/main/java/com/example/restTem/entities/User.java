@@ -10,15 +10,12 @@ import lombok.Data;
 @Entity
 @Data
 public class User {
-
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
         private String name;
-        @Email(message = "Email không hợp lệ")
         @Column(unique = true)
         private String email;
-        @NotEmpty(message = "Tên không được trống")
         private String address;
 
 }

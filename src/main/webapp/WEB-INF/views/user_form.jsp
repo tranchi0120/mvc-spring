@@ -44,13 +44,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <%--@elvariable id="Users" type="java"--%>
+
                     <form:form action="${pageContext.request.contextPath}/saveUser" method="post" modelAttribute="user">
-                    <%--        kiểm tra xem có id không để cập nhật--%>
+                    <%--   kiểm tra xem có id không để cập nhật--%>
                     <form:hidden path="id" placeholder="Enter name"/>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <form:input type="text" class="form-control" path="name" placeholder="Enter name"/>
+                        <form:input type="text" class="form-control" path="name" placeholder="Enter name" required = "true"/>
                         <span style="color: red;" id="nameError">
 
                     </span>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <form:input type="text" class="form-control" path="address" placeholder="Enter address"/>
+                        <form:input type="text" class="form-control" path="address" placeholder="Enter address" required = "true"/>
                     </div>
                         <button type="submit" class="btn btn-primary add"
                                 onclick="showSuccessMessage()">${user.id != null ? 'Update' : 'Add'}</button>

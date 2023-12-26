@@ -14,10 +14,15 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public boolean save(User user) {
+
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    public void save(User user) {
         if (user.getId() == null) {
             if (userRepository.existsByEmail(user.getEmail())) {
-                return false;
+                return;
             }
             userRepository.save(user);
         } else {
@@ -29,15 +34,8 @@ public class UserService {
                 userRepository.save(staffUpdate);
             }
         }
-        return true;
     }
 
-
-
-
-    public List<User> getAll() {
-        return userRepository.findAll();
-    }
 
     public User getUserId(Integer id) {
         return userRepository.findById(id).orElse(null);
@@ -50,10 +48,5 @@ public class UserService {
     public boolean emailExists(String email) {
         return userRepository.existsByEmail(email);
     }
-
-    public Page<User> getUserList(Pageable pageable){
-      return   userRepository.findAll(pageable);
-    }
-
 
 }
