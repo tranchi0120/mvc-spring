@@ -3,11 +3,10 @@ package com.example.restTem.service;
 import com.example.restTem.entities.User;
 import com.example.restTem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -19,30 +18,39 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void save(User user) {
-        if (user.getId() == null) {
-            if (userRepository.existsByEmail(user.getEmail())) {
-                return;
-            }
-            userRepository.save(user);
-        } else {
-            User staffUpdate = userRepository.findById(user.getId()).orElse(null);
-            if (staffUpdate != null) {
-                staffUpdate.setName(user.getName());
-                staffUpdate.setAddress(user.getAddress());
-                staffUpdate.setEmail(user.getEmail());
-                userRepository.save(staffUpdate);
-            }
-        }
-    }
+    public User addUser(User user) {
+        return userRepository.save(user);
 
+
+    }
 
     public User getUserId(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
+    public User update(Integer userId, User user) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User StaffUserUpdate = optionalUser.get();
+            StaffUserUpdate.setName(user.getName());
+            StaffUserUpdate.setEmail(user.getEmail());
+            StaffUserUpdate.setAddress(user.getAddress());
+            return userRepository.save(StaffUserUpdate);
+        } else {
+            return null;
+        }
+    }
+
+
+    public boolean deleteUser(Integer id) {
+        if(userRepository.existsById(id)){
+            userRepository.deleteById(id);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public boolean emailExists(String email) {

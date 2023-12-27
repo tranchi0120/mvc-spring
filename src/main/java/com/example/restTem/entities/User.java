@@ -1,14 +1,13 @@
 package com.example.restTem.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
+@Component
 @Entity
 @Data
+
 public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +17,14 @@ public class User {
         private String email;
         private String address;
 
+        public User(){
+
+        }
+
+        public User(Integer id, String name, String email, String address) {
+                this.id = id;
+                this.name = name;
+                this.email = email;
+                this.address = address;
+        }
 }
