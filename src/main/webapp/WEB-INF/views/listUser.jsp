@@ -73,11 +73,9 @@
                             var userId = $(this).data("userid");
                             console.log("userId: ", userId)
                             deleteRow(userId);
-
                         });
                         var actionColumn = $("<td>").append(edit).append(deleted);
                         row.append(actionColumn);
-
                         table.append(row);
                     });
 
@@ -88,7 +86,7 @@
             // delete User
             function deleteUser(userId) {
                 $.ajax({
-                    url: "/delete/" + userId,
+                    url: "http://localhost:8080/users/delete/" + userId,
                     type: "DELETE",
                     success: function () {
                         loadUserList();

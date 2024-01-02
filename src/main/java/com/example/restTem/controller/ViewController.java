@@ -31,8 +31,4 @@ public class ViewController {
         return "userForm";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Long id){
-        return "listUser";
-    }
 }
