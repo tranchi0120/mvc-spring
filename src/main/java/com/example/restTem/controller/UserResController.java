@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/users")
 public class UserResController {
@@ -34,7 +35,6 @@ public class UserResController {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            System.out.println("USER:" + user);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
