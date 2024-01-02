@@ -30,7 +30,7 @@ public class UserResController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
         Optional<User> userOptional = Optional.ofNullable(userService.getUserId(id));
 
         if (userOptional.isPresent()) {
@@ -57,7 +57,6 @@ public class UserResController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer userId, @RequestBody User user) {
         User updateUserResult = userService.update(userId, user);
@@ -67,7 +66,6 @@ public class UserResController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer userId) {
         boolean deleted = userService.deleteUser(userId);

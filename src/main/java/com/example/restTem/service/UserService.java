@@ -23,8 +23,8 @@ public class UserService {
 
     }
 
-    public User getUserId(Integer id) {
-        return userRepository.findById(id).orElse(null);
+    public User getUserId(Long id) {
+        return userRepository.findById(Math.toIntExact(id)).orElse(null);
     }
 
     public User update(Integer userId, User user) {
